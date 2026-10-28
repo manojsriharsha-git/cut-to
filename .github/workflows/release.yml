@@ -1,0 +1,66 @@
+# Builds "Cut To.exe" and the Windows installer, and publishes them as a GitHub release.
+# Start it by pushing a version tag:   git tag v1.0.1   then   git push origin v1.0.1
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install packages
+        run: python -m pip install -r requirements.txt
+      - name: Run the self-checks
+        run: python -m pytest -q
+      - name: Build Cut To.exe
+        run: python -m PyInstaller --noconfirm --clean packaging\cutto.spec
+      - name: Make the portable zip (unzip and run, no install)
+        shell: pwsh
+        run: |
+          $v = (Select-String -Path app\__init__.py -Pattern '__version__ = "(.+)"').Matches[0].Groups[1].Value
+          Compress-Archive -Path "dist\Cut To" -DestinationPath "dist\CutTo-$v-Windows-Portable.zip"
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
+      - name: Build the installer
+        shell: pwsh
+        run: '& "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" packaging\installer.iss'
+      - name: Publish the release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/CutTo-Setup-*.exe
+            dist/CutTo-*-Windows-Portable.zip
+          generate_release_notes: true
+          body: |
+            ## Download for Windows 10 / 11 (64-bit)
+            | File | For |
+            |---|---|
+            | **CutTo-x.y.z-Windows-Portable.zip** | Unzip and double-click **Cut To.exe**. No installing. |
+            | **CutTo-Setup-x.y.z.exe** | Installs Cut To: with Start-menu entry, desktop shortcut and file associations. |
+
+            Ignore the "Source code" files below unless you're a developer.
+            If Windows says "Windows protected your PC", click **More info → Run anyway**.
+      - name: Keep the installer (manual runs)
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: CutTo-Windows
+          path: |
+            dist/CutTo-Setup-*.exe
+            dist/CutTo-*-Windows-Portable.zip

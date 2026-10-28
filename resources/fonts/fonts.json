@@ -1,0 +1,339 @@
+[
+ {
+  "name": "Courier Prime",
+  "group": "Screenplay",
+  "folder": "courierprime",
+  "files": [
+   "CourierPrime-Regular.ttf",
+   "CourierPrime-Italic.ttf",
+   "CourierPrime-Bold.ttf",
+   "CourierPrime-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Cousine",
+  "group": "Screenplay",
+  "folder": "cousine",
+  "files": [
+   "Cousine-Regular.ttf",
+   "Cousine-Italic.ttf",
+   "Cousine-Bold.ttf",
+   "Cousine-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "IBM Plex Mono",
+  "group": "Screenplay",
+  "folder": "ibmplexmono",
+  "files": [
+   "IBMPlexMono-Regular.ttf",
+   "IBMPlexMono-Italic.ttf",
+   "IBMPlexMono-Bold.ttf",
+   "IBMPlexMono-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Special Elite",
+  "group": "Screenplay",
+  "folder": "specialelite",
+  "files": [
+   "SpecialElite-Regular.ttf"
+  ],
+  "license": "Apache 2.0"
+ },
+ {
+  "name": "Space Mono",
+  "group": "Screenplay",
+  "folder": "spacemono",
+  "files": [
+   "SpaceMono-Regular.ttf",
+   "SpaceMono-Italic.ttf",
+   "SpaceMono-Bold.ttf",
+   "SpaceMono-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Anonymous Pro",
+  "group": "Screenplay",
+  "folder": "anonymouspro",
+  "files": [
+   "AnonymousPro-Regular.ttf",
+   "AnonymousPro-Italic.ttf",
+   "AnonymousPro-Bold.ttf",
+   "AnonymousPro-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Roboto Mono",
+  "group": "Screenplay",
+  "folder": "robotomono",
+  "files": [
+   "RobotoMono[wght].ttf",
+   "RobotoMono-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Inconsolata",
+  "group": "Screenplay",
+  "folder": "inconsolata",
+  "files": [
+   "Inconsolata[wdth,wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Cutive",
+  "group": "Screenplay",
+  "folder": "cutive",
+  "files": [
+   "Cutive-Regular.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Cutive Mono",
+  "group": "Screenplay",
+  "folder": "cutivemono",
+  "files": [
+   "CutiveMono-Regular.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "PT Mono",
+  "group": "Screenplay",
+  "folder": "ptmono",
+  "files": [
+   "PTM55FT.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Inter",
+  "group": "Document",
+  "folder": "inter",
+  "files": [
+   "Inter[opsz,wght].ttf",
+   "Inter-Italic[opsz,wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Lato",
+  "group": "Document",
+  "folder": "lato",
+  "files": [
+   "Lato-Regular.ttf",
+   "Lato-Italic.ttf",
+   "Lato-Bold.ttf",
+   "Lato-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Open Sans",
+  "group": "Document",
+  "folder": "opensans",
+  "files": [
+   "OpenSans[wdth,wght].ttf",
+   "OpenSans-Italic[wdth,wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Roboto",
+  "group": "Document",
+  "folder": "roboto",
+  "files": [
+   "Roboto[wdth,wght].ttf",
+   "Roboto-Italic[wdth,wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Work Sans",
+  "group": "Document",
+  "folder": "worksans",
+  "files": [
+   "WorkSans[wght].ttf",
+   "WorkSans-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Montserrat",
+  "group": "Document",
+  "folder": "montserrat",
+  "files": [
+   "Montserrat-Regular.ttf",
+   "Montserrat-Bold.ttf",
+   "Montserrat-Italic.ttf",
+   "Montserrat-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1",
+  "note": "Static styles made from the variable font (allowed: no Reserved Font Name)."
+ },
+ {
+  "name": "Poppins",
+  "group": "Document",
+  "folder": "poppins",
+  "files": [
+   "Poppins-Regular.ttf",
+   "Poppins-Italic.ttf",
+   "Poppins-Bold.ttf",
+   "Poppins-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Nunito",
+  "group": "Document",
+  "folder": "nunito",
+  "files": [
+   "Nunito-Regular.ttf",
+   "Nunito-Bold.ttf",
+   "Nunito-Italic.ttf",
+   "Nunito-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1",
+  "note": "Static styles made from the variable font (allowed: no Reserved Font Name)."
+ },
+ {
+  "name": "PT Sans",
+  "group": "Document",
+  "folder": "ptsans",
+  "files": [
+   "PT_Sans-Web-Regular.ttf",
+   "PT_Sans-Web-Italic.ttf",
+   "PT_Sans-Web-Bold.ttf",
+   "PT_Sans-Web-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "PT Serif",
+  "group": "Document",
+  "folder": "ptserif",
+  "files": [
+   "PT_Serif-Web-Regular.ttf",
+   "PT_Serif-Web-Italic.ttf",
+   "PT_Serif-Web-Bold.ttf",
+   "PT_Serif-Web-BoldItalic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Lora",
+  "group": "Document",
+  "folder": "lora",
+  "files": [
+   "Lora[wght].ttf",
+   "Lora-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Libre Baskerville",
+  "group": "Document",
+  "folder": "librebaskerville",
+  "files": [
+   "LibreBaskerville[wght].ttf",
+   "LibreBaskerville-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "EB Garamond",
+  "group": "Document",
+  "folder": "ebgaramond",
+  "files": [
+   "EBGaramond[wght].ttf",
+   "EBGaramond-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Crimson Pro",
+  "group": "Document",
+  "folder": "crimsonpro",
+  "files": [
+   "CrimsonPro[wght].ttf",
+   "CrimsonPro-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Source Serif 4",
+  "group": "Document",
+  "folder": "sourceserif4",
+  "files": [
+   "SourceSerif4[opsz,wght].ttf",
+   "SourceSerif4-Italic[opsz,wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Playfair Display",
+  "group": "Title",
+  "folder": "playfairdisplay",
+  "files": [
+   "PlayfairDisplay[wght].ttf",
+   "PlayfairDisplay-Italic[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "DM Serif Display",
+  "group": "Title",
+  "folder": "dmserifdisplay",
+  "files": [
+   "DMSerifDisplay-Regular.ttf",
+   "DMSerifDisplay-Italic.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Bebas Neue",
+  "group": "Title",
+  "folder": "bebasneue",
+  "files": [
+   "BebasNeue-Regular.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Oswald",
+  "group": "Title",
+  "folder": "oswald",
+  "files": [
+   "Oswald[wght].ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Archivo Black",
+  "group": "Title",
+  "folder": "archivoblack",
+  "files": [
+   "ArchivoBlack-Regular.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+ },
+ {
+  "name": "Space Grotesk",
+  "group": "Title",
+  "folder": "spacegrotesk",
+  "files": [
+   "SpaceGrotesk-Regular.ttf",
+   "SpaceGrotesk-Bold.ttf"
+  ],
+  "license": "SIL Open Font License 1.1",
+  "note": "Static styles made from the variable font (allowed: no Reserved Font Name)."
+ }
+]

@@ -1,0 +1,20 @@
+name: Feature request
+description: "An idea that would make writing in Cut To: better"
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do as a writer?
+      placeholder: "When I rewrite a scene I want to…"
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: "Your idea for how Cut To: could help"
+  - type: textarea
+    id: elsewhere
+    attributes:
+      label: How other apps do it (optional)
+      description: Final Draft, WriterDuet, Highland, Fade In…

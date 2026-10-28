@@ -1,0 +1,29 @@
+name: Bug report
+description: "Something in Cut To: doesn't work as it should"
+labels: [bug]
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to make it happen
+      placeholder: "1. Open a new script\n2. Press Ctrl+1, Ctrl+2, Ctrl+3\n3. Press Ctrl+4"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened instead
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "Cut To: version (Help → About) and Windows version"
+      placeholder: "Cut To: 1.0.0 on Windows 11"
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: A file or screenshot that shows it (optional)
+      description: Drag a small .cut / .fdx file or a screenshot here.

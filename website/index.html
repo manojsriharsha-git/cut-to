@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cut To: · free screenwriting for Windows</title>
+<meta name="description" content="Cut To: is a free, open-source screenwriting app for Windows that works the way Final Draft does. Opens and saves .fdx files.">
+<meta property="og:title" content="Cut To: · free screenwriting for Windows">
+<meta property="og:description" content="Industry-standard pages, SmartType, index cards, beat board, revisions and production tools. Free and open source.">
+<meta property="og:image" content="assets/logo-sheet.png">
+<link rel="icon" href="assets/cutto.png">
+<style>
+@font-face { font-family: "Courier Prime"; src: url(assets/fonts/CourierPrime-Regular.ttf); font-weight: 400; }
+@font-face { font-family: "Courier Prime"; src: url(assets/fonts/CourierPrime-Bold.ttf); font-weight: 700; }
+@font-face { font-family: "Courier Prime"; src: url(assets/fonts/CourierPrime-Italic.ttf); font-style: italic; }
+@font-face { font-family: "Archivo Black"; src: url(assets/fonts/ArchivoBlack-Regular.ttf); }
+
+:root {
+  --paper: #FFFEFA;       /* the page */
+  --desk: #E6DFD7;        /* around the page */
+  --ink: #2E2823;
+  --soft: #7A6C60;
+  --honey: #E4C85D;       /* the logo */
+  --mustard: #C99A2E;
+  --line: #DCD2C7;
+  --unit: 1.5rem;          /* one line of script */
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #2A2521; --desk: #1C1916; --ink: #EDE4D8; --soft: #A89888; --line: #463C35; --mustard: #E4C85D; }
+}
+* { box-sizing: border-box; }
+html { background: var(--desk); }
+body {
+  margin: 0; color: var(--ink); background: var(--desk);
+  font: 400 1.0625rem/var(--unit) "Courier Prime", "Courier New", monospace;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; border-radius: 4px; }
+img { max-width: 100%; display: block; }
+
+/* the page: a sheet of US Letter, indents like a real script */
+.page {
+  max-width: 50rem; margin: 0 auto; background: var(--paper);
+  padding: calc(var(--unit) * 3) clamp(1.25rem, 9%, 6rem) calc(var(--unit) * 4);
+  box-shadow: 0 1px 0 var(--line), 0 30px 80px -40px rgba(46, 40, 35, .35);
+}
+.pagenum { text-align: right; color: var(--soft); margin: 0 0 calc(var(--unit) * 2); }
+
+/* screenplay elements */
+.scene { font-weight: 700; text-transform: uppercase; margin: calc(var(--unit) * 2) 0 var(--unit); }
+.scene .num { float: left; margin-left: -3.5rem; width: 2.5rem; text-align: right; color: var(--soft); font-weight: 400; }
+.action { margin: 0 0 var(--unit); max-width: 62ch; }
+.character { margin: var(--unit) 0 0 38%; text-transform: uppercase; }
+.paren { margin: 0 0 0 30%; }
+.dialogue { margin: 0 0 var(--unit) 20%; max-width: 35ch; }
+.transition { text-align: right; text-transform: uppercase; margin: calc(var(--unit) * 2) 0; letter-spacing: .02em; }
+.transition.big {
+  font: 400 clamp(2rem, 6vw, 3.4rem)/1 "Archivo Black", sans-serif; letter-spacing: -.01em; color: var(--ink);
+  margin: calc(var(--unit) * 3) 0;
+}
+
+/* hero */
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center; margin-bottom: calc(var(--unit) * 2); }
+.hero img { width: 88px; height: 88px; }
+.hero h1 { margin: 0; font: 400 clamp(3rem, 11vw, 6rem)/.9 "Archivo Black", sans-serif; letter-spacing: -.02em; }
+.hero h1 .cursor { display: inline-block; width: .08em; height: .8em; background: var(--mustard); margin-left: .06em; vertical-align: -.02em; animation: blink 1.1s steps(1) 6 forwards; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hero h1 .cursor { animation: none; } }
+.lede { font-size: 1.2rem; line-height: 1.75rem; max-width: 52ch; margin: 0 0 calc(var(--unit) * 1.5); }
+
+/* downloads */
+.get { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin: var(--unit) 0; }
+.dl {
+  display: block; text-decoration: none; padding: 1.1rem 1.25rem; border-radius: 14px;
+  border: 2px solid var(--ink); background: var(--paper); transition: transform .12s ease;
+}
+.dl:hover { transform: translateY(-2px); }
+.dl.primary { background: var(--honey); border-color: var(--honey); color: #2E2823; }
+.dl strong { display: block; font-size: 1.15rem; }
+.dl span { display: block; font-size: .95rem; opacity: .85; }
+.fine { color: var(--soft); font-size: .95rem; }
+
+/* screenshots inserted like INSERT shots */
+figure { margin: var(--unit) calc(clamp(1.25rem, 9%, 6rem) * -0.5) calc(var(--unit) * 1.5); }
+figure img { border-radius: 10px; border: 1px solid var(--line); }
+figcaption { color: var(--soft); font-size: .95rem; margin-top: .5rem; }
+
+ol.steps { padding-left: 1.6rem; margin: 0 0 var(--unit); }
+ol.steps li { margin-bottom: .5rem; }
+kbd { font: inherit; padding: 0 .3rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; }
+
+footer { max-width: 50rem; margin: 0 auto; padding: 2rem clamp(1.25rem, 9%, 6rem) 3rem; color: var(--soft); font-size: .95rem; }
+footer a { margin-right: 1.25rem; }
+
+@media (max-width: 40rem) {
+  .scene .num { display: none; }
+  .character { margin-left: 25%; } .paren { margin-left: 18%; } .dialogue { margin-left: 10%; }
+  .hero { grid-template-columns: 1fr; }
+  figure { margin-left: 0; margin-right: 0; }
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <p class="pagenum">1.</p>
+
+  <header class="hero">
+    <img src="assets/cutto.png" alt="">
+    <h1>Cut To:<span class="cursor" aria-hidden="true"></span></h1>
+  </header>
+  <p class="lede">A free, open-source screenwriting app for Windows that works the way Final Draft does, and opens and saves your <b>.fdx</b> files.</p>
+
+  <div class="get" id="download">
+    <a class="dl primary" id="dl-setup" href="https://github.com/manojsriharsha-git/cut-to/releases/latest">
+      <strong>Download the installer</strong>
+      <span id="dl-setup-meta">Windows 10 and 11, 64-bit</span>
+    </a>
+    <a class="dl" id="dl-portable" href="https://github.com/manojsriharsha-git/cut-to/releases/latest">
+      <strong>Download portable zip</strong>
+      <span id="dl-portable-meta">Unzip and run, nothing to install</span>
+    </a>
+  </div>
+  <p class="fine" id="dl-version">Free forever. No account, no subscription.</p>
+
+  <p class="transition">FADE IN:</p>
+
+  <h2 class="scene"><span class="num">1</span>INT. YOUR DESK - NIGHT</h2>
+  <p class="action">A blank page. You type <i>int.</i> and it becomes a scene heading. You press Enter and you're writing action. A name in capitals becomes a character; the next line is dialogue. Real pages, Courier Prime 12 pt, one page a minute.</p>
+  <p class="character">SMARTTYPE</p>
+  <p class="paren">(already guessing)</p>
+  <p class="dialogue">EXT. OBSERVATORY ROOF - CONTINUOUS? I learn your locations, your characters and who usually speaks next.</p>
+  <figure>
+    <img src="assets/script.png" alt="Cut To: with a script open: scene list on the left, the page in the middle." loading="lazy" width="1280" height="820">
+    <figcaption>The page: Final Draft margins and page rules, with (MORE) and CONT'D when a speech runs over.</figcaption>
+  </figure>
+
+  <p class="transition big">CUT TO:</p>
+
+  <h2 class="scene"><span class="num">2</span>INT. WRITERS' ROOM - DAY</h2>
+  <p class="action">Index cards spread across the wall. Drag one and the scene moves in the script. Next door, a beat board with arrows between ideas, storylines in colour, and a profile for every character, down to what they want and what they need.</p>
+  <figure>
+    <img src="assets/cards.png" alt="Index cards view with coloured cards for every scene." loading="lazy" width="1280" height="820">
+    <figcaption>Index cards, each one a scene with its synopsis, length and who speaks in it.</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/board.png" alt="Beat board with beats connected by arrows." loading="lazy" width="1280" height="820">
+    <figcaption>The Beat Board: double-click for a beat, Alt-drag to connect two.</figcaption>
+  </figure>
+
+  <p class="transition big">CUT TO:</p>
+
+  <h2 class="scene"><span class="num">3</span>INT. PRODUCTION OFFICE - MORNING</h2>
+  <p class="action">The draft is locked. New scenes become 12A and 12B. Revisions come in blue, then pink, each changed line starred in the margin. Select a word, tag it as a prop or a vehicle, and the breakdown sheet writes itself. Shot lists and a stripboard sit next to it.</p>
+  <figure>
+    <img src="assets/production.png" alt="Production view with breakdown tags for a scene." loading="lazy" width="1280" height="820">
+    <figcaption>Breakdown, shot list and stripboard for every scene.</figcaption>
+  </figure>
+
+  <p class="transition big">CUT TO:</p>
+
+  <h2 class="scene"><span class="num">4</span>INT. TABLE READ - LATER</h2>
+  <p class="action">The script reads itself aloud, a different voice for every character. On the wall: who talks most, who talks to whom, how long every scene runs.</p>
+  <figure>
+    <img src="assets/insights.png" alt="Insights view with dialogue by character and a who-talks-to-whom diagram." loading="lazy" width="1280" height="820">
+    <figcaption>Insights for the whole script.</figcaption>
+  </figure>
+
+  <p class="transition">DISSOLVE TO:</p>
+
+  <h2 class="scene"><span class="num">5</span>INT. ANY COMPUTER - ANY TIME</h2>
+  <p class="action">It opens what you already have: Final Draft, Fountain, Word, PDF, Celtx, Highland, Fade In and Trelby. It saves Final Draft and Fountain, and exports PDF, Word and RTF. Your work is copied every minute, and every save is kept, so you can compare drafts and bring old ones back.</p>
+
+  <h2 class="scene"><span class="num">6</span>INT. YOUR DESK - NIGHT</h2>
+  <p class="action">Getting started takes a minute.</p>
+  <ol class="steps">
+    <li>Download the <a href="#download">installer or the portable zip</a>.</li>
+    <li>Installer: double-click it. Portable: right-click → <b>Extract All</b>, open the folder, double-click <b>Cut To.exe</b>.</li>
+    <li>If Windows says “Windows protected your PC”, click <b>More info</b>, then <b>Run anyway</b>. The app isn't code-signed yet.</li>
+    <li>Press <kbd>Ctrl</kbd>+<kbd>1</kbd> and start your first scene.</li>
+  </ol>
+  <p class="action">Every feature and shortcut is in the <a href="https://github.com/manojsriharsha-git/cut-to/blob/main/docs/USER_GUIDE.md">user guide</a>.</p>
+
+  <p class="transition">FADE OUT.</p>
+</main>
+
+<footer>
+  <p>
+    <a href="https://github.com/manojsriharsha-git/cut-to">Source code on GitHub</a>
+    <a href="https://github.com/manojsriharsha-git/cut-to/releases">All releases</a>
+    <a href="https://github.com/manojsriharsha-git/cut-to/issues">Report a bug</a>
+    <a href="https://github.com/manojsriharsha-git/cut-to/blob/main/CONTRIBUTING.md">Contribute</a>
+  </p>
+  <p>Cut To: is free software under the GNU GPL v3.0 or later. Fonts under the SIL Open Font License. Final Draft is a registered trademark of its owner; Cut To: is independent and not affiliated with it.</p>
+</footer>
+
+<script>
+/* Point the buttons at the newest release's files and show their version and size. */
+(async () => {
+  try {
+    const r = await fetch("https://api.github.com/repos/manojsriharsha-git/cut-to/releases/latest");
+    if (!r.ok) return;
+    const rel = await r.json();
+    const mb = a => Math.round(a.size / 1048576) + " MB";
+    for (const a of rel.assets || []) {
+      if (/^CutTo-Setup-.*\.exe$/.test(a.name)) {
+        document.getElementById("dl-setup").href = a.browser_download_url;
+        document.getElementById("dl-setup-meta").textContent = `Windows 10 and 11, 64-bit, ${mb(a)}`;
+      } else if (/Windows-Portable\.zip$/.test(a.name)) {
+        document.getElementById("dl-portable").href = a.browser_download_url;
+        document.getElementById("dl-portable-meta").textContent = `Unzip and run, nothing to install, ${mb(a)}`;
+      }
+    }
+    document.getElementById("dl-version").textContent =
+      `Version ${rel.tag_name.replace(/^v/, "")}. Free forever. No account, no subscription.`;
+  } catch (e) { /* offline or rate-limited: the buttons still open the releases page */ }
+})();
+</script>
+</body>
+</html>

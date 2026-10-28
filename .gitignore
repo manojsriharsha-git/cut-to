@@ -1,0 +1,18 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Build output (made by build.bat / GitHub Actions)
+build/
+dist/
+out/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
