@@ -1,7 +1,7 @@
-"""Final Draft (.fdx) reader & writer.
+"""FDX (.fdx) reader & writer.
 
 .fdx is plain XML, so this is format *interoperability*, not decompiling
-Final Draft's program. Structure handled:
+any other program. Structure handled:
 
 <FinalDraft DocumentType="Script" Template="No" Version="5">
   <Content>
@@ -18,9 +18,9 @@ Final Draft's program. Structure handled:
   <CutToData>{json}</CutToData>   <- Cut To:'s own extras (cards, beats, notes...)
 </FinalDraft>
 
-Scene colours and summaries also go where Final Draft keeps them
-(<SceneProperties Color=".."><Summary>..</Summary>), so they show up in Final Draft too.
-Final Draft ignores <CutToData>; Cut To: reads it back so nothing is lost.
+Scene colours and summaries also go in the standard place
+(<SceneProperties Color=".."><Summary>..</Summary>), so other apps show them too.
+Other apps ignore <CutToData>; Cut To: reads it back so nothing is lost.
 (Files from before the rename used <ScreenplayData>; those still open.)
 """
 from __future__ import annotations
@@ -37,7 +37,7 @@ _KNOWN_ATTRS = {"Type", "Number", "StartsNewPage", "Alignment"}
 
 # ------------------------------------------------------------------ colours
 def _color_in(value: str | None) -> str | None:
-    """Final Draft writes colours as #RRRRGGGGBBBB (16 bits each); we use #RRGGBB."""
+    """FDX stores colours as #RRRRGGGGBBBB (16 bits each); we use #RRGGBB."""
     if not value or not value.startswith("#"):
         return None
     h = value[1:]
@@ -61,7 +61,7 @@ def _runs(p: ET.Element) -> list[Run]:
         style = t.get("Style", "")
         font = t.get("Font")
         if font and font.lower().startswith("courier"):
-            font = None                              # Final Draft's default typewriter face
+            font = None                              # the format's default typewriter face
         runs.append(Run(t.text or "", "Bold" in style, "Italic" in style, "Underline" in style,
                         "Strikeout" in style, _color_in(t.get("Color")),
                         _color_in(t.get("Background")), font=font))
@@ -128,7 +128,7 @@ def parse(data: bytes | str) -> Script:
         data = data.encode("utf-8")
     root = ET.fromstring(data)
     if root.tag != "FinalDraft":
-        raise ValueError("Not a Final Draft document (root is <%s>)" % root.tag)
+        raise ValueError("Not an FDX document (root is <%s>)" % root.tag)
     els: list[Element] = []
     content = root.find("Content")
     if content is not None:
@@ -193,14 +193,14 @@ def _add_text(p: ET.Element, runs: list[Run]):
 
 
 def _fdx_type(el: Element) -> tuple[str, list[Run]]:
-    """Map IR types that Final Draft lacks onto General, keeping their text."""
+    """Map IR types that FDX lacks onto General, keeping their text."""
     if el.type == T.NOTE:
         return T.GENERAL, [Run(f"[[{el.text}]]")]
     if el.type == T.SECTION:
         return T.GENERAL, [Run("#" * int(el.extra.get("level", 1)) + " " + el.text)]
     if el.type == T.SYNOPSIS:
         return T.GENERAL, [Run("= " + el.text)]
-    if el.type == T.IMAGE:                      # Final Draft gets a placeholder note
+    if el.type == T.IMAGE:                      # FDX gets a placeholder note
         return T.GENERAL, [Run(el.text)]
     return el.type, [Run(r.text, r.bold, r.italic, r.underline, r.strike, r.color, r.highlight,
                          font=r.font) for r in el.runs]          # links are kept as plain text

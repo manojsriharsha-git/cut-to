@@ -45,7 +45,7 @@ EMPTY_ENTER = {
     T.CHARACTER: T.ACTION, T.DIALOGUE: T.ACTION, T.PARENTHETICAL: T.DIALOGUE,
     T.SHOT: T.ACTION, T.GENERAL: T.ACTION,
 }
-# Tab / Shift+Tab cycle the current paragraph (Final Draft style)
+# Tab / Shift+Tab cycle the current paragraph (the usual screenwriting convention)
 TAB_NEXT = {
     T.ACTION: T.CHARACTER, T.CHARACTER: T.TRANSITION, T.TRANSITION: T.SCENE_HEADING,
     T.SCENE_HEADING: T.ACTION, T.DIALOGUE: T.PARENTHETICAL, T.PARENTHETICAL: T.DIALOGUE,
@@ -114,7 +114,7 @@ def classify_typed(etype: str, text: str, known: Iterable[str] = ()) -> str | No
 
 
 def live_retype(etype: str, text: str) -> str | None:
-    """While typing: switch element immediately (like Final Draft does for 'int.')."""
+    """While typing: switch element immediately (e.g. typing 'int.' makes a scene heading)."""
     s = text.lstrip()
     if etype == T.ACTION and re.match(r"^(int|ext|est|i/e|int\./ext)\.?\s", s, re.I) \
             and ("." in s.split()[0] or s[:3].lower() == "i/e"):

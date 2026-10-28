@@ -7,9 +7,9 @@ All notable changes to Cut To: are listed here, newest first.
 The first public release.
 
 ### Writing and pages
-- A Final Draft–style editor: real US Letter pages, the Enter/Tab element flow, Ctrl+1–8 element shortcuts.
+- The editor: real US Letter pages, the Enter/Tab element flow, Ctrl+1–8 element shortcuts.
 - SmartType, which predicts scene headings, characters and transitions and learns from your scripts.
-- Final Draft page rules, with (MORE) / (CONT'D) when a speech splits across pages.
+- Screenplay page rules, with (MORE) / (CONT'D) when a speech splits across pages.
 - PDF export, printing and a title page.
 - Formatting, colours, images and links.
 - 32 bundled open-licence fonts, adding your own fonts, and changing the script font.
@@ -28,7 +28,7 @@ The first public release.
 
 ### Rewrites
 - ScriptNotes.
-- Revision mode, with Final Draft's colour order and asterisks.
+- Revision mode, with the standard colour order and asterisks.
 - Comparing and restoring versions.
 
 ### Production

@@ -1,5 +1,5 @@
 """
-Final Draft page rules, as pure Python so they can be tested without a window.
+Screenplay page rules, as pure Python so they can be tested without a window.
 
 The editor measures each paragraph (its space-before, the height of each of its
 lines, whether it must stay in one piece, whether the writer forced a page break)

@@ -14,7 +14,7 @@ from . import fountain, fdx
 READERS = {
     ".cut": ("Cut To:", "json"), ".screenplay": ("Cut To: (old .screenplay)", "json"),
     ".json": ("Script IR", "json"),
-    ".fdx": ("Final Draft", "fdx"),
+    ".fdx": ("FDX", "fdx"),
     ".fountain": ("Fountain", "fountain"), ".spmd": ("Fountain", "fountain"),
     ".txt": ("Plain text / Fountain", "fountain"),
     ".docx": ("Word", "docx"), ".pdf": ("PDF", "pdf"),
@@ -26,9 +26,9 @@ WRITE_EXT = {".cut": "json", ".screenplay": "json", ".json": "json", ".fdx": "fd
              ".spmd": "fountain", ".txt": "text", ".docx": "docx", ".rtf": "rtf"}
 LOSSLESS = {".cut", ".screenplay", ".json"}
 NATIVE = (".cut", ".fdx", ".fountain", ".screenplay", ".json", ".spmd", ".txt")
-SAVE_FILTERS = "Final Draft (*.fdx);;Cut To: (*.cut);;Fountain (*.fountain)"
+SAVE_FILTERS = "Cut To: (*.cut);;FDX (*.fdx);;Fountain (*.fountain)"
 EXPORTS = [("Word Document (.docx)", ".docx"), ("Rich Text (.rtf)", ".rtf"),
-           ("Fountain", ".fountain"), ("Final Draft (.fdx)", ".fdx"), ("Plain Text", ".txt")]
+           ("Fountain", ".fountain"), ("FDX (.fdx)", ".fdx"), ("Plain Text", ".txt")]
 
 
 def open_filter() -> str:
@@ -96,7 +96,7 @@ def loses_content(script: Script, path: str | Path) -> bool:
     """True when saving to this format would drop something.
 
     .cut keeps everything. .fdx keeps images, colours, cards, beats and notes
-    (in a section Final Draft ignores) but not links. Fountain keeps plain text only."""
+    (in a section other apps ignore) but not links. Fountain keeps plain text only."""
     ext = Path(path).suffix.lower()
     if ext in LOSSLESS:
         return False

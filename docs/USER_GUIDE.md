@@ -67,7 +67,7 @@ SmartType learns from every script you open or save. To clear what it has learne
 
 ## Pages, PDF and printing
 
-The page is a real US Letter page: Courier Prime 12 pt, 1-inch top and bottom margins, and Final Draft's indents. What you see is what prints. Final Draft's page rules are applied as you write:
+The page is a real US Letter page: Courier Prime 12 pt, 1-inch top and bottom margins, and industry-standard indents. What you see is what prints. The page rules are applied as you write:
 - A scene heading or shot is never the last line on a page.
 - A character name always has at least two lines of their speech under it.
 - A speech that runs over a page keeps at least two lines on each page, never ends a page on a parenthetical, and gets **(MORE)** and **NAME (CONT'D)**.
@@ -148,7 +148,7 @@ Page numbers appear top right from page 2. Scene numbers appear in both margins 
 
 - **ScriptNotes:** right-click a paragraph → **Add ScriptNote**, or press Ctrl+Shift+N. A coloured tab marks the paragraph in the left margin, and every note is listed in the navigator's **Notes** tab. Notes travel with their paragraph when you cut, paste or move scenes, and they never print.
 - **Revisions:**
-  1. Choose **Tools → Revisions → Revisions…** and pick the revision colour (Blue, Pink, Yellow, Green, Goldenrod… in Final Draft's order) and its date.
+  1. Choose **Tools → Revisions → Revisions…** and pick the revision colour (Blue, Pink, Yellow, Green, Goldenrod… in the industry's standard order) and its date.
   2. Turn on **Revision Mode** (Ctrl+Shift+M).
   3. Every paragraph you change now gets an asterisk in the right margin. The PDF prints a header such as *Blue Rev. (10/27/2026)* on every page.
   4. When you start a fresh round, choose **Clear Revision Marks**.
@@ -189,7 +189,7 @@ Page numbers appear top right from page 2. Scene numbers appear in both margins 
 | | Open | Save | Export | Keeps |
 |---|---|---|---|---|
 | **Cut To:** `.cut` | ✓ | ✓ | | everything |
-| **Final Draft** `.fdx` | ✓ | ✓ | ✓ | everything except links |
+| **FDX** `.fdx` | ✓ | ✓ | ✓ | everything except links |
 | **Fountain** `.fountain` | ✓ | ✓ | ✓ | text and structure |
 | **Word** `.docx` | ✓ | | ✓ | text, structure, styles |
 | **PDF** | ✓ (screenplay PDFs) | | ✓ | |

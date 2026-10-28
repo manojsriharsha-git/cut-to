@@ -1,5 +1,5 @@
 """
-Rewrites: ScriptNotes, revision mode (colours + asterisks, like Final Draft) and
+Rewrites: ScriptNotes, revision mode (colours + asterisks, the industry convention) and
 version history with compare and restore.
 
 ScriptNotes live on the paragraph they're about (extra["notes"]), so they travel

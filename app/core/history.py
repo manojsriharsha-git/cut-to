@@ -3,7 +3,7 @@ Safety nets, in plain files under the app's data folder:
 
   recovery/   a copy of every open script with unsaved changes, rewritten every minute.
               Deleted when you save or close normally; offered back after a crash.
-  history/    a snapshot every time you save (Final Draft calls these backups), plus
+  history/    a snapshot every time you save (backups), plus
               any version you save on purpose with a label. Used by File > Version History.
 
 Everything is stored as .cut JSON, so nothing (images, cards, notes) is lost.

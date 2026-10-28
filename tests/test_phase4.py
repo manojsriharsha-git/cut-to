@@ -1,4 +1,4 @@
-"""Phase 4: Final Draft page rules (keep-with-next, speech splits, (MORE)/(CONT'D))."""
+"""Phase 4: screenplay page rules (keep-with-next, speech splits, (MORE)/(CONT'D))."""
 import os
 import random
 import pytest

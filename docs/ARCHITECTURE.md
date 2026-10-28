@@ -8,7 +8,7 @@ app/
   core/                    pure Python, no Qt: everything here is unit-tested without a window
     ir.py                  the script model: Script → Element → Run (the "IR")
     layout.py              page sizes, element indents, templates (screenplay, TV, multi-cam, stage)
-    pagination.py          Final Draft page rules: where automatic page breaks go, (MORE)/(CONT'D)
+    pagination.py          page rules: where automatic page breaks go, (MORE)/(CONT'D)
     smart.py               Enter/Tab flow tables and SmartType (learning predictions)
     reports.py             scenes / characters / locations reports
     analysis.py            Insights numbers (screen time, who talks to whom…)
@@ -17,7 +17,7 @@ app/
     emphasis.py            Fountain *italic* / **bold** / _underline_
   formats/                 every file format converts to and from the IR, never to each other
     __init__.py            registry: load(path) / save(script, path), what each format keeps
-    fdx.py fountain.py     Final Draft and Fountain (read + write)
+    fdx.py fountain.py     FDX and Fountain (read + write)
     docx_io.py             Word (read + write)
     pdf_import.py          screenplay PDFs (read)
     imports.py             Celtx, Trelby, Highland, Fade In (read)
@@ -50,13 +50,13 @@ Every script is a `Script`. It holds:
 
 Per-paragraph data lives in `Element.extra`. It covers synopsis, colour, storylines, notes, revision level, breakdown, shots and image data. Because it is stored on the paragraph, it moves, copies and undoes together with the paragraph.
 
-The `.cut` file is simply this model as JSON (`Script.to_json`). `.fdx` writes the standard Final Draft XML and puts the extras in a `<CutToData>` section, which Final Draft ignores.
+The `.cut` file is simply this model as JSON (`Script.to_json`). `.fdx` writes standard FDX XML and puts the extras in a `<CutToData>` section, which other apps ignore.
 
 ## The page
 
 The editor is a `QTextEdit` whose document is paginated as US Letter. Each paragraph stores its element type and its metadata as block-format properties (`PROP_TYPE`, `PROP_META`). That way they survive undo, copy and paste, and splitting a paragraph.
 
-Final Draft's page rules work like this:
+The page rules work like this:
 1. After each pause in typing, `pages.measure()` reads the height of every line.
 2. `pagination.plan()`, which is pure Python, decides which paragraphs need an automatic page break.
 3. The editor applies those breaks inside the user's last undo step, so one Ctrl+Z takes back both the typing and the breaks it caused.

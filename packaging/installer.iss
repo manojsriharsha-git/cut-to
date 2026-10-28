@@ -30,7 +30,7 @@ ChangesAssociations=yes
 Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Shortcuts:"
 Name: "assoccut"; Description: "Open .cut scripts with Cut To:"; GroupDescription: "File types:"
 Name: "assocfountain"; Description: "Open .fountain files with Cut To:"; GroupDescription: "File types:"
-Name: "assocfdx"; Description: "Open Final Draft .fdx files with Cut To:"; GroupDescription: "File types:"; Flags: unchecked
+Name: "assocfdx"; Description: "Open .fdx files with Cut To:"; GroupDescription: "File types:"; Flags: unchecked
 
 [Files]
 Source: "..\dist\Cut To\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs

@@ -21,7 +21,7 @@ from ..core.pagination import Geom, Page, Split, speech_splits
 
 PROP_TYPE = QTextFormat.Property.UserProperty + 1      # element type of a paragraph
 PROP_META = QTextFormat.Property.UserProperty + 2      # scene number, page break, image...
-PROP_AUTO = QTextFormat.Property.UserProperty + 3      # automatic page break (Final Draft rules)
+PROP_AUTO = QTextFormat.Property.UserProperty + 3      # automatic page break (page rules)
 SCREEN_GAP = 22                                         # px of background between sheets
 FIXED_HEIGHT = 2                                        # QTextBlockFormat.FixedHeight
 
@@ -172,7 +172,7 @@ def page_font(dpi: float, family: str = "Courier Prime") -> QFont:
 def draw_page_furniture(p: QPainter, doc: QTextDocument, dpi: float, page: int,
                         page_top: float, color: str, marks=None, splits=None, ink: str | None = None,
                         extras: dict | None = None, revisions=None, star_colors=None):
-    """Page number (from page 2, top right like Final Draft), scene numbers in both margins,
+    """Page number (from page 2, top right), scene numbers in both margins,
     (MORE) / NAME (CONT'D) where a speech carries on, revision asterisks and header."""
     extras = extras or {}
     font = page_font(dpi, doc.defaultFont().family())

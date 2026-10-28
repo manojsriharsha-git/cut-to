@@ -74,7 +74,7 @@ class DocumentIO:
                 continue
             for r in el.runs:
                 cur.insertText(r.text.replace("\n", LINE_SEP), self._run_format(tcf, r))
-        self._paginate(join=False)                     # Final Draft page rules
+        self._paginate(join=False)                     # industry page rules
         doc.clearUndoRedoStacks()
         doc.setModified(False)
         self.setTextCursor(QTextCursor(doc.firstBlock()))

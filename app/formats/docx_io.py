@@ -1,6 +1,6 @@
 """Microsoft Word (.docx) import and export, using python-docx.
 
-Export: one Word paragraph per element, Courier Prime 12pt, Final Draft indents,
+Export: one Word paragraph per element, Courier Prime 12pt, industry-standard indents,
 and a named paragraph style per element ("Screenplay Scene Heading", ...), so a
 file exported here comes back exactly.
 

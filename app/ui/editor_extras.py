@@ -28,7 +28,7 @@ REVISION_COLORS = [("White", "#FFFFFF"), ("Blue", "#7EA6E0"), ("Pink", "#F2A7C3"
                    ("Yellow", "#F2DA6B"), ("Green", "#8FCB8F"), ("Goldenrod", "#DDB24A"),
                    ("Buff", "#E8D3A9"), ("Salmon", "#F0A58C"), ("Cherry", "#D9576B"),
                    ("Tan", "#C9A57E")]
-# Final Draft's standard order of revision colours
+# the industry's standard order of revision colours
 
 
 def _words(text: str) -> int:
@@ -139,7 +139,7 @@ class EditorExtras:
         super().insertFromMimeData(source)
 
     def insert_elements(self, els: list[Element]):
-        """Paste paragraphs at the cursor, Final Draft style: the first one joins the current
+        """Paste paragraphs at the cursor: the first one joins the current
         paragraph, the rest follow as their own paragraphs (one Undo step)."""
         cur = self.textCursor()
         cur.beginEditBlock()

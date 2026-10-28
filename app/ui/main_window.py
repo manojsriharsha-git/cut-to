@@ -652,7 +652,7 @@ class MainWindow(QMainWindow):
         box.setWindowTitle(f"About {__app_name__}")
         box.setIconPixmap(QIcon(resource_path("icons", "cutto.png")).pixmap(QSize(96, 96)))
         box.setText(f"<b style='font-size:15pt'>{__app_name__}</b>&nbsp; {__version__}<br><br>"
-                    "Free, open-source screenwriting, Final Draft compatible.<br><br>"
+                    "Free, open-source screenwriting.<br><br>"
                     "Licensed under the GNU GPL v3.0 or later. Fonts: SIL Open Font License / "
                     "Apache 2.0.<br>"
                     "<a href='https://github.com/manojsriharsha-git/cut-to'>"
@@ -887,7 +887,7 @@ class MainWindow(QMainWindow):
                               f"{p.suffix} files can't keep everything in this script "
                               f"(pictures, colours, links, cards, notes or revisions become plain "
                               f"text or are left out).\n\nSave a .cut file instead? It keeps "
-                              f"everything and can still be exported to Final Draft later.",
+                              f"everything and can still be exported to .fdx later.",
                               parent=self)
             keep = box.addButton("Save as .cut", QMessageBox.ButtonRole.AcceptRole)
             box.addButton(f"Save {p.suffix} anyway", QMessageBox.ButtonRole.DestructiveRole)

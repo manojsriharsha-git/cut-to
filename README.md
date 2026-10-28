@@ -5,9 +5,9 @@
 <h1 align="center">Cut To:</h1>
 
 <p align="center">
-  A free, open-source screenwriting app for Windows that has everything your script needs.<br>
-  Industry-standard pages, SmartType, index cards, a beat board, revisions, production breakdowns,
-  and it opens and saves Final Draft <code>.fdx</code> files.
+  A free, open-source screenwriting app for Windows, built from the page up for writers.<br>
+  Industry-standard pages, SmartType, index cards, a beat board, revisions and production breakdowns,
+  and it plays well with the files the industry already uses, <code>.fdx</code> included.
 </p>
 
 <p align="center">
@@ -44,10 +44,10 @@ If Windows says *"Windows protected your PC"*, click **More info → Run anyway*
 
 | | |
 |---|---|
-| **Write** | Real US Letter pages in Courier Prime 12 pt. Final Draft's Enter/Tab element flow. **SmartType** predicts scene headings, characters and transitions and learns from your scripts. Final Draft page rules: no headings stranded at the bottom of a page, and **(MORE)** / **NAME (CONT'D)** when a speech splits. |
+| **Write** | Real US Letter pages in Courier Prime 12 pt. A natural Enter/Tab element flow. **SmartType** predicts scene headings, characters and transitions and learns from your scripts. Proper page rules: no headings stranded at the bottom of a page, and **(MORE)** / **NAME (CONT'D)** when a speech splits. |
 | **Comfort** | Find & Replace, Go To, a command palette (Ctrl+Shift+P), spelling as you type, Day / Night / Midnight themes, Focus Mode, typewriter scrolling, a daily word goal, rename a character everywhere, smart paste, crash recovery and version history. |
 | **Plan** | **Index cards**: drag a card to move the scene in your script. **Beat Board** with flow lines, storylines, structure points, a scene ribbon above the page, and character profiles with a "lens" that highlights a character's lines. |
-| **Rewrite** | ScriptNotes on any paragraph. **Revision mode** with coloured asterisks in Final Draft's colour order (Blue, Pink, Yellow…) and a revision header in the PDF. Compare and restore any earlier version. |
+| **Rewrite** | ScriptNotes on any paragraph. **Revision mode** with coloured asterisks in the industry's standard colour order (Blue, Pink, Yellow…) and a revision header in the PDF. Compare and restore any earlier version. |
 | **Produce** | Locked scene numbers (12A, 12B), omitted scenes, breakdown tagging and sheets, shot lists, a stripboard, and TV, multi-camera and stage play templates. |
 | **Analyse** | Dialogue by character, scene lengths, who appears in which scene, who talks to whom, estimated screen time, and **Table Read**, which reads the script aloud with a voice per character. |
 | **Fonts** | 32 free, open-licence fonts built in (typewriter, document and title faces), plus any font you add. |
@@ -77,7 +77,7 @@ New to it? The **[user guide](docs/USER_GUIDE.md)** covers every feature and sho
 ## File formats
 
 - **`.cut`** is Cut To:'s own format, and the only one that keeps absolutely everything. It is plain JSON, so you can read it with any text editor or version it with git.
-- **`.fdx`** is fully compatible with Final Draft. Cut To:'s cards, beats and notes ride along in a section Final Draft ignores, so nothing is lost when you open the file in Cut To: again. Links are the only thing `.fdx` can't keep.
+- **`.fdx`** opens and saves, so you can swap scripts with other software. Cut To:'s cards, beats and notes ride along in a section other apps ignore, so nothing is lost when you open the file in Cut To: again. Links are the only thing `.fdx` can't keep.
 - **Fountain** keeps the text and the screenplay structure.
 
 ## Build from source
@@ -110,4 +110,4 @@ Cut To: is free software under the **[GNU General Public License v3.0 or later](
 
 Cut To: is built with Qt for Python (LGPL), pyspellchecker, python-docx and pdfplumber (MIT). The fonts it bundles are under the SIL Open Font License or Apache 2.0, and each font's licence sits next to it in `resources/fonts/`. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-*Final Draft is a registered trademark of its owner. Cut To: is an independent project, not affiliated with or endorsed by Final Draft; it reads and writes `.fdx` files, which are plain XML.*
+*All trademarks belong to their respective owners. Cut To: is an independent project.*

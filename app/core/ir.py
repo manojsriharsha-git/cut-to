@@ -13,7 +13,7 @@ from typing import Iterable
 
 
 class T:
-    """Element type names. Values match Final Draft's Paragraph Type strings."""
+    """Element type names. Values match the .fdx Paragraph Type strings."""
     SCENE_HEADING = "Scene Heading"
     ACTION = "Action"
     CHARACTER = "Character"
@@ -22,7 +22,7 @@ class T:
     TRANSITION = "Transition"
     SHOT = "Shot"
     GENERAL = "General"
-    # Not native Final Draft paragraph types (Fountain-only concepts)
+    # Not native .fdx paragraph types (Fountain-only concepts)
     NOTE = "Note"
     SECTION = "Section"
     SYNOPSIS = "Synopsis"
@@ -36,7 +36,7 @@ class T:
 
 @dataclass
 class Run:
-    """A span of text sharing one style (Final Draft <Text Style="..."> run)."""
+    """A span of text sharing one style (an .fdx <Text Style="..."> run)."""
     text: str
     bold: bool = False
     italic: bool = False

@@ -2,7 +2,7 @@
 Industry page-layout constants (US Letter, Courier 12pt, 6 lines per inch).
 
 Indents are measured in inches from the LEFT EDGE OF THE PAGE, the same way
-Final Draft stores them in <ParagraphSpec LeftIndent/RightIndent>.
+the .fdx format stores them in <ParagraphSpec LeftIndent/RightIndent>.
 Phase 1 uses these to write valid FDX ElementSettings; Phase 2 (editor) and
 Phase 4 (pagination / PDF) reuse the exact same numbers.
 """

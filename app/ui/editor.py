@@ -124,7 +124,7 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
         # QTextEdit quietly switches pagination off whenever it re-lays the text out
         # (resizing, typing past the window...). Switch it straight back on.
         self.document().documentLayout().documentSizeChanged.connect(self._ensure_pages)
-        # Final Draft page rules run shortly after every edit (not after Undo/Redo, which
+        # The page rules run shortly after every edit (not after Undo/Redo, which
         # already bring the right page breaks back with them).
         self._page_timer = QTimer(self, singleShot=True, interval=250)
         self._page_timer.timeout.connect(self._paginate)
@@ -223,7 +223,7 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
         self.document().setModified(modified)
 
     def _paginate(self, join: bool = True):
-        """Apply Final Draft's page rules: work out which paragraphs need an automatic page
+        """Apply the screenplay page rules: work out which paragraphs need an automatic page
         break and update only the ones that changed. The change joins the writer's last
         edit, so one Ctrl+Z undoes the edit and its page breaks together."""
         if self._paginating:

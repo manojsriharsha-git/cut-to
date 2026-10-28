@@ -34,7 +34,7 @@ By contributing, you agree that your contribution is licensed under the project'
 ## Ideas waiting for someone
 
 - Side-by-side dual dialogue (it currently shows one speech under the other).
-- Giving (MORE) / (CONT'D) a line of their own, as Final Draft does.
+- Giving (MORE) / (CONT'D) a line of their own.
 - A macOS build.
 - Translations of the interface.
 - Real-time collaboration.
