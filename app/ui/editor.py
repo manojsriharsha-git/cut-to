@@ -36,8 +36,8 @@ from .theme import C
 
 KEEP_TOGETHER = (T.SCENE_HEADING, T.CHARACTER, T.PARENTHETICAL, T.TRANSITION, T.SHOT, T.IMAGE)
 
-SHORT = {T.SCENE_HEADING: "Scene", T.ACTION: "Action", T.CHARACTER: "Character",
-         T.PARENTHETICAL: "Paren", T.DIALOGUE: "Dialogue", T.TRANSITION: "Transition",
+SHORT = {T.SCENE_HEADING: "Scene Heading", T.ACTION: "Action", T.CHARACTER: "Character",
+         T.PARENTHETICAL: "Parenthetical", T.DIALOGUE: "Dialogue", T.TRANSITION: "Transition",
          T.SHOT: "Shot", T.GENERAL: "General", T.NOTE: "Note", T.SECTION: "Section",
          T.SYNOPSIS: "Synopsis", T.LYRICS: "Lyrics", T.IMAGE: "Image"}
 SHORTCUT_TYPES = [T.SCENE_HEADING, T.ACTION, T.CHARACTER, T.PARENTHETICAL,
@@ -471,6 +471,12 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
 
     # ================================================================ keyboard and mouse
     def keyPressEvent(self, e: QKeyEvent):
+        self._key_press(e)
+        # Enter, Tab and the shortcuts are handled here, not by Qt, so Qt doesn't scroll
+        # to the cursor by itself: without this the page stays put while you type below it.
+        self.ensureCursorVisible()
+
+    def _key_press(self, e: QKeyEvent):
         key, mods = e.key(), e.modifiers()
         ctrl = bool(mods & Qt.KeyboardModifier.ControlModifier)
         shift = bool(mods & Qt.KeyboardModifier.ShiftModifier)
@@ -786,7 +792,7 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
         ui.setPixelSize(max(10, round(11 * self.zoom)))
         p.setFont(ui)
         p.setPen(QColor(C.CARAMEL))
-        p.drawText(QRectF(0.15 * self.dpi - sx, r.top(), 0.8 * self.dpi, r.height()),
+        p.drawText(QRectF(0.15 * self.dpi - sx, r.top(), 1.25 * self.dpi, r.height()),
                    int(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft),
                    SHORT.get(block_type(block), ""))
 

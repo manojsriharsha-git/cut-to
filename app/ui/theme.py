@@ -95,7 +95,7 @@ QStatusBar QLabel {{ color: {C.INK_SOFT}; padding: 3px 8px; }}
 QLabel#elemPill {{ background: {C.HONEY}; color: {C.INK}; border-radius: 9px;
                    padding: 2px 12px; font-weight: 600; }}
 
-QTextEdit#page {{ border: none; background: {C.PAPER}; color: {C.INK};
+QTextEdit#page {{ border: none; color: {C.INK};
                   selection-background-color: {C.SELECT}; selection-color: {C.INK}; }}
 QSplitter::handle {{ background: {C.LINE}; }}
 
@@ -126,6 +126,10 @@ QToolButton:pressed, QToolButton:checked {{ background: {C.SELECT}; }}
 QToolButton[popupMode="1"] {{ padding-right: 14px; }}
 QToolButton::menu-button {{ border: none; width: 12px; }}
 QLabel#zoom {{ color: {C.INK_SOFT}; min-width: 40px; qproperty-alignment: AlignCenter; }}
+QToolButton#textTool {{ padding: 5px 10px; color: {C.INK_SOFT}; font-weight: 600; }}
+QToolButton#focusExit {{ background: transparent; border: 1px solid transparent; border-radius: 14px;
+                         color: {C.INK_SOFT}; padding: 4px 10px; font-size: 11pt; }}
+QToolButton#focusExit:hover {{ background: {C.CREAM}; border-color: {C.LINE}; color: {C.INK}; }}
 QPushButton#primary {{ background: {C.MUSTARD}; border: 1px solid {C.MUSTARD}; color: {C.INK};
                        font-weight: 600; padding: 6px 16px; border-radius: 8px; }}
 QPushButton#primary:hover {{ background: {C.HONEY}; border-color: {C.HONEY}; }}

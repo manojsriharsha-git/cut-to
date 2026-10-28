@@ -505,3 +505,54 @@ def test_ctrl_number_keys_in_a_row_never_crash(window, qapp):
         QTest.keyClick(ed, k, Qt.KeyboardModifier.ControlModifier)
         qapp.processEvents()
     assert ed.current_type() == T.PARENTHETICAL and ed.textCursor().block().text() == "()"
+
+
+def test_enter_at_the_bottom_scrolls_to_the_new_line(window, qapp):
+    """Pressing Enter on the last visible line must scroll down with the cursor. It used to
+    stay at the top because Enter is handled by the editor itself, not by Qt."""
+    from PySide6.QtCore import Qt
+    ed = window.editor
+    ed.load_script(Script())
+    window.resize(1200, 700)
+    window.show()
+    ed.setFocus()
+    for i in range(45):
+        QTest.keyClicks(ed, "Line %d" % i)
+        QTest.keyClick(ed, Qt.Key.Key_Return)
+        qapp.processEvents()
+        r = ed.cursorRect()
+        assert 0 <= r.top() and r.bottom() <= ed.viewport().height(), i
+
+
+def test_only_the_sheet_is_paper():
+    """The page stylesheet must not paint a background: that would colour the desk around
+    the sheet too, and the gap between pages would look like a box on one long page."""
+    import re
+    from app.ui.theme import build_qss
+    rule = re.search(r"QTextEdit#page \{[^}]*\}", build_qss()).group(0)
+    assert "background" not in rule.replace("selection-background", "")
+
+
+def test_focus_mode_has_a_visible_way_out(window, qapp):
+    """The toolbar says "Focus Mode" in words, and while it's on a ✕ button brings you back."""
+    from PySide6.QtWidgets import QToolButton
+    labels = [b.text() for b in window.toolbar.findChildren(QToolButton)]
+    assert "Focus Mode" in labels
+    window.show()
+    window.toggle_focus(True)
+    qapp.processEvents()
+    assert window.focus_exit.isVisible() and "Exit Focus Mode" in window.focus_exit.toolTip()
+    window.focus_exit.click()
+    qapp.processEvents()
+    assert not window.act["focus"].isChecked() and not window.focus_exit.isVisible()
+    assert window.toolbar.isVisible()
+
+
+def test_type_and_font_boxes_fit_their_names(window):
+    fm = window.type_combo.fontMetrics()
+    for i in range(window.type_combo.count()):
+        need = fm.horizontalAdvance(window.type_combo.itemText(i))
+        assert need + 24 <= window.type_combo.sizeHint().width(), (need, window.type_combo.width())
+    from app.ui.editor import SHORT
+    from app.core.ir import T
+    assert SHORT[T.PARENTHETICAL] == "Parenthetical" and SHORT[T.SCENE_HEADING] == "Scene Heading"

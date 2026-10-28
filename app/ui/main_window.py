@@ -124,6 +124,32 @@ class LinkDialog(QDialog):
         (self.url if text else self.text).setFocus()
 
 
+class FocusExitButton(QToolButton):
+    """A quiet ✕ in the corner while Focus Mode is on. Hovering it spells out what it does."""
+
+    def __init__(self, parent):
+        super().__init__(parent, objectName="focusExit")
+        self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.setToolTip("Exit Focus Mode  (Ctrl+Shift+F or Esc)")
+        self.setText("✕")
+
+    def enterEvent(self, e):                       # noqa: N802
+        self.setText("✕  Exit Focus Mode")
+        self._reposition()
+        super().enterEvent(e)
+
+    def leaveEvent(self, e):                       # noqa: N802
+        self.setText("✕")
+        self._reposition()
+        super().leaveEvent(e)
+
+    def _reposition(self):
+        right = self.x() + self.width()             # keep the right edge where it was
+        self.adjustSize()
+        self.move(right - self.width(), self.y())
+
+
 class MainWindow(QMainWindow):
     def __init__(self, memory: SmartMemory, data: Path | None = None):
         super().__init__()
@@ -374,12 +400,15 @@ class MainWindow(QMainWindow):
         self.type_combo.activated.connect(
             lambda i: (self.editor.set_current_type(self.type_combo.itemData(i)),
                        self.editor.setFocus()))
-        self.type_combo.setFixedWidth(128)
+        # always wide enough for the longest name ("Parenthetical", "Scene Heading"),
+        # whatever font size the theme uses
+        self.type_combo.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         tb.addWidget(self.type_combo)
         self.font_combo = QComboBox(objectName="fontCombo")
         self.font_combo.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.font_combo.setMaxVisibleItems(24)
-        self.font_combo.setFixedWidth(146)
+        self.font_combo.setFixedWidth(max(210, self.font_combo.fontMetrics()
+                                          .horizontalAdvance("Libre Baskerville Italic") + 56))
         self.font_combo.view().setMinimumWidth(240)
         self.font_combo.setToolTip("Font of the selected text (Format > Script Font changes the whole script)")
         self.font_combo.activated.connect(self._font_chosen)
@@ -410,8 +439,16 @@ class MainWindow(QMainWindow):
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         tb.addWidget(spacer)
-        tb.addAction(self.act["focus"])
+        focus_btn = QToolButton(objectName="textTool")
+        focus_btn.setDefaultAction(self.act["focus"])
+        focus_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextOnly)
+        focus_btn.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        tb.addWidget(focus_btn)
         tb.addAction(self.act["print"])
+        # the way out of Focus Mode, shown only while it's on (top right, faint until hovered)
+        self.focus_exit = FocusExitButton(self)
+        self.focus_exit.clicked.connect(lambda: self.toggle_focus(False))
+        self.focus_exit.hide()
         pdf = QPushButton("Export PDF", objectName="primary")
         pdf.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         pdf.setToolTip(self.act["pdf"].toolTip())
@@ -772,14 +809,36 @@ class MainWindow(QMainWindow):
         for w in (self.toolbar, self.statusBar(), self.rail, self.menuBar()):
             w.setVisible(not on)
         self.navigator.setVisible(not on and self.act["sidebar"].isChecked())
+        # bars above the page (scene ribbon…) step aside too, and come back as they were
+        if on and not getattr(self, "_focus_hidden", None):
+            top = [self.script_top.itemAt(i).widget() for i in range(self.script_top.count())]
+            self._focus_hidden = [w for w in top if w is not None and w.isVisible()]
+            for w in self._focus_hidden:
+                w.hide()
+        elif not on:
+            for w in getattr(self, "_focus_hidden", None) or []:
+                w.show()
+            self._focus_hidden = None
         self.editor.set_focus_mode(on)
         if on and not self.isFullScreen():
             self._was_full = False
             self.showFullScreen()
         elif not on and not getattr(self, "_was_full", True):
             self.showNormal()
+        self.focus_exit.setVisible(on)
         if on:
-            self.statusBar().showMessage("Focus Mode — press Ctrl+Shift+F to come back", 3000)
+            self._place_focus_exit()
+            self.focus_exit.raise_()
+
+    def _place_focus_exit(self):
+        b = self.focus_exit
+        b.adjustSize()
+        b.move(self.width() - b.width() - 18, 14)
+
+    def resizeEvent(self, e):                     # noqa: N802
+        super().resizeEvent(e)
+        if hasattr(self, "focus_exit") and self.focus_exit.isVisible():
+            self._place_focus_exit()
 
     def toggle_typewriter(self, on: bool):
         self.editor.set_typewriter(on)
