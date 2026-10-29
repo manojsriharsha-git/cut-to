@@ -69,7 +69,7 @@ QMenu::item:selected {{ background: {C.BLUSH}; }}
 QMenu::item:disabled {{ color: {C.INK_SOFT}; }}
 QMenu::separator {{ height: 1px; background: {C.LINE}; margin: 5px 8px; }}
 
-QToolBar {{ background: {C.GREIGE}; border: none; padding: 6px 14px; spacing: 10px; }}
+QToolBar {{ background: {C.GREIGE}; border: none; border-bottom: 1px solid {C.LINE}; padding: 5px 10px; spacing: 1px; }}
 QComboBox {{ background: {C.PAPER}; border: 1px solid {C.LINE}; border-radius: 8px;
              padding: 5px 12px; min-width: 150px; color: {C.INK}; }}
 QComboBox:hover {{ border-color: {C.SALMON}; }}
@@ -95,8 +95,8 @@ QStatusBar QLabel {{ color: {C.INK_SOFT}; padding: 3px 8px; }}
 QLabel#elemPill {{ background: {C.HONEY}; color: {C.INK}; border-radius: 9px;
                    padding: 2px 12px; font-weight: 600; }}
 
-QTextEdit#page {{ border: none; color: {C.INK};
-                  selection-background-color: {C.SELECT}; selection-color: {C.INK}; }}
+/* the page (QTextEdit#page) takes its colours from the palette (editor.apply_colors),
+   so the paper and the desk around it can differ */
 QSplitter::handle {{ background: {C.LINE}; }}
 
 QScrollBar:vertical {{ background: transparent; width: 11px; margin: 3px; }}
@@ -117,7 +117,6 @@ QLabel {{ color: {C.INK}; }}
 QToolTip {{ background: {C.PAPER}; color: {C.INK}; border: 1px solid {C.LINE}; padding: 4px; }}
 QMessageBox {{ background: {C.GREIGE}; }}
 
-QToolBar#main {{ padding: 5px 10px; spacing: 1px; border-bottom: 1px solid {C.LINE}; }}
 QToolBar#main::separator {{ background: {C.LINE}; width: 1px; margin: 6px 3px; }}
 
 QToolButton {{ background: transparent; border: none; border-radius: 6px; padding: 3px; color: {C.INK}; }}

@@ -224,6 +224,7 @@ class MainWindow(QMainWindow):
         self.speller = Speller(self.data / "dictionary.txt")
         self.editor.spell = None
         self.editor.context_hooks.append(self._spell_menu)
+        self.set_auto_capitalize(self.settings.value("autoCapitalize", "true") == "true")
         if self.settings.value("spelling", "true") == "true":
             QTimer.singleShot(400, lambda: self.set_spelling(True))
 
@@ -327,6 +328,9 @@ class MainWindow(QMainWindow):
             "rename": self._a("Rename Character…", self.rename_character, None),
             "spelling": self._a("Check Spelling as You Type", lambda on: self.set_spelling(on),
                                 "F7", checkable=True),
+            "autocap": self._a("Capitalize Sentences Automatically", self.set_auto_capitalize,
+                               None, checkable=True,
+                               tip="Action and dialogue: a capital letter at the start of each sentence"),
             "focus": self._a("Focus Mode", self.toggle_focus, "Ctrl+Shift+F", "focus", checkable=True),
             "typewriter": self._a("Typewriter Scrolling", self.toggle_typewriter, "Ctrl+Shift+T",
                                   checkable=True),
@@ -449,6 +453,8 @@ class MainWindow(QMainWindow):
         self.focus_exit = FocusExitButton(self)
         self.focus_exit.clicked.connect(lambda: self.toggle_focus(False))
         self.focus_exit.hide()
+        # never squeeze the element box on a small screen
+        self.type_combo.setMinimumWidth(self.type_combo.sizeHint().width())
         pdf = QPushButton("Export PDF", objectName="primary")
         pdf.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         pdf.setToolTip(self.act["pdf"].toolTip())
@@ -519,6 +525,7 @@ class MainWindow(QMainWindow):
             fm.addAction(a[k])
         fm.addMenu(self.case_menu)
         fm.addAction(a["clear"])
+        fm.addAction(a["autocap"])
         fm.addSeparator()
         fm.addAction(self._a("Script Font…", self.choose_script_font, None))
         fm.addAction(self._a("Add Font File…", self.add_font_files, None))
@@ -777,6 +784,11 @@ class MainWindow(QMainWindow):
         if dlg.exec():
             self.settings.setValue("goalWords", dlg.words.value())
             self.goal_widget.update_view()
+
+    def set_auto_capitalize(self, on: bool):
+        self.act["autocap"].setChecked(on)
+        self.editor.auto_capitalize = on
+        self.settings.setValue("autoCapitalize", "true" if on else "false")
 
     def set_spelling(self, on: bool):
         self.act["spelling"].setChecked(on)

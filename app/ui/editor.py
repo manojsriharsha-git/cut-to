@@ -23,7 +23,7 @@ from PySide6.QtWidgets import QTextEdit, QFrame, QListWidget, QListWidgetItem
 
 from ..core.ir import T, Script
 from ..core.layout import PAGE_WIDTH_IN, specs_for, spacing_for
-from ..core.smart import (SmartMemory, Completion, Suggestion, CAPS_TYPES, ENTER_NEXT,
+from ..core.smart import (capital_to_make, SmartMemory, Completion, Suggestion, CAPS_TYPES, ENTER_NEXT,
                           EMPTY_ENTER, TAB_NEXT, SHIFT_TAB_NEXT, classify_typed, live_retype)
 from .editor_io import DocumentIO, LINE_SEP, NOTE_TYPES
 from .editor_tools import FormattingTools
@@ -97,6 +97,7 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
         self._loading = False
         self._quiet = False
         self.typewriter = False
+        self.auto_capitalize = True     # Format > Capitalize Sentences Automatically
         self._in_range = False
         self.context_hooks: list = []         # functions adding right-click menu items
         self.paint_hooks: list = []           # functions drawing on the page (note markers...)
@@ -142,7 +143,10 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
         pal.setColor(QPalette.ColorRole.Base, QColor(C.PAPER))
         pal.setColor(QPalette.ColorRole.Window, QColor(C.GREIGE))
         pal.setColor(QPalette.ColorRole.Text, QColor(C.INK))
+        pal.setColor(QPalette.ColorRole.Highlight, QColor(C.SELECT))
+        pal.setColor(QPalette.ColorRole.HighlightedText, QColor(C.INK))
         self.setPalette(pal)
+        self.viewport().setPalette(pal)        # the sheet keeps its own copy: refresh it too
         self.viewport().update()
 
     @property
@@ -472,9 +476,31 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
     # ================================================================ keyboard and mouse
     def keyPressEvent(self, e: QKeyEvent):
         self._key_press(e)
+        if e.key() == Qt.Key.Key_Space and not e.modifiers() & Qt.KeyboardModifier.ControlModifier:
+            self._capitalize_sentence()
         # Enter, Tab and the shortcuts are handled here, not by Qt, so Qt doesn't scroll
         # to the cursor by itself: without this the page stays put while you type below it.
         self.ensureCursorVisible()
+
+    def _capitalize_sentence(self):
+        """Action and dialogue: after a space, the first word of the paragraph or of a new
+        sentence gets a capital letter. Part of the same Undo step as the typing."""
+        if not self.auto_capitalize or self.current_type() not in (T.ACTION, T.DIALOGUE):
+            return
+        cur = self.textCursor()
+        if cur.hasSelection():
+            return
+        block = cur.block()
+        i = capital_to_make(block.text(), cur.positionInBlock())
+        if i is None:
+            return
+        c = QTextCursor(block)
+        c.setPosition(block.position() + i)
+        c.movePosition(QTextCursor.MoveOperation.NextCharacter, QTextCursor.MoveMode.KeepAnchor)
+        fmt = c.charFormat()
+        c.joinPreviousEditBlock()
+        c.insertText(c.selectedText().upper(), fmt)
+        c.endEditBlock()
 
     def _key_press(self, e: QKeyEvent):
         key, mods = e.key(), e.modifiers()
@@ -792,9 +818,19 @@ class ScreenplayEditor(DocumentIO, FormattingTools, EditorExtras, QTextEdit):
         ui.setPixelSize(max(10, round(11 * self.zoom)))
         p.setFont(ui)
         p.setPen(QColor(C.CARAMEL))
-        p.drawText(QRectF(0.15 * self.dpi - sx, r.top(), 1.25 * self.dpi, r.height()),
-                   int(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft),
-                   SHORT.get(block_type(block), ""))
+        # it sits in the margin and always ends a little before the line's text starts,
+        # so it never runs into the text or a SmartType suggestion
+        # (and before the note markers and scene numbers at 1 inch)
+        label = SHORT.get(block_type(block), "")
+        left = 0.12 * self.dpi - sx
+        right = min(r.left() - 0.2 * self.dpi, 1.02 * self.dpi - sx)
+        while label and QFontMetricsF(ui).horizontalAdvance(label) > right - left \
+                and ui.pixelSize() > 8:
+            ui.setPixelSize(ui.pixelSize() - 1)       # a long name gets a slightly smaller size
+            p.setFont(ui)
+        if label and QFontMetricsF(ui).horizontalAdvance(label) <= right - left:
+            p.drawText(QRectF(left, r.top(), right - left, r.height()),
+                       int(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft), label)
 
         # SmartType ghost text
         if self._ghost_rest:

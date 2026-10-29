@@ -45,7 +45,7 @@ If Windows says *"Windows protected your PC"*, click **More info → Run anyway*
 | | |
 |---|---|
 | **Write** | Real US Letter pages in Courier Prime 12 pt. A natural Enter/Tab element flow. **SmartType** predicts scene headings, characters and transitions and learns from your scripts. Proper page rules: no headings stranded at the bottom of a page, and **(MORE)** / **NAME (CONT'D)** when a speech splits. |
-| **Comfort** | Find & Replace, Go To, a command palette (Ctrl+Shift+P), spelling as you type, Day / Night / Midnight themes, Focus Mode, typewriter scrolling, a daily word goal, rename a character everywhere, smart paste, crash recovery and version history. |
+| **Comfort** | Find & Replace, Go To, a command palette (Ctrl+Shift+P), spelling as you type, automatic capitals at the start of sentences, Day / Night / Midnight themes, Focus Mode, typewriter scrolling, a daily word goal, rename a character everywhere, smart paste, crash recovery and version history. |
 | **Plan** | **Index cards**: drag a card to move the scene in your script. **Beat Board** with flow lines, storylines, structure points, a scene ribbon above the page, and character profiles with a "lens" that highlights a character's lines. |
 | **Rewrite** | ScriptNotes on any paragraph. **Revision mode** with coloured asterisks in the industry's standard colour order (Blue, Pink, Yellow…) and a revision header in the PDF. Compare and restore any earlier version. |
 | **Produce** | Locked scene numbers (12A, 12B), omitted scenes, breakdown tagging and sheets, shot lists, a stripboard, and TV, multi-camera and stage play templates. |

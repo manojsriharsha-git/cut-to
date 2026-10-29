@@ -144,7 +144,7 @@ def test_formatting_tools(ed):
     ed.change_case("upper")
     runs = ed.to_script().elements[1].runs
     assert [(r.text, r.strike, r.color, r.highlight) for r in runs] == [
-        ("one", True, None, None), (" ", False, None, None), ("two", False, "#C0392B", None),
+        ("One", True, None, None), (" ", False, None, None), ("two", False, "#C0392B", None),
         (" ", False, None, None), ("three", False, None, "#F3E3A3"), (" FOUR", False, None, None)]
     select(ed, base, base + 18)
     ed.clear_formatting()

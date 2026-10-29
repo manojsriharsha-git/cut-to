@@ -1,10 +1,10 @@
-; Inno Setup script: turns "dist\Cut To" into CutTo-Setup-1.0.0.exe
+; Inno Setup script: turns "dist\Cut To" into CutTo-Setup-1.0.1.exe
 ; Open this file in Inno Setup (free, jrsoftware.org) and press Build > Compile,
 ; or run build.bat, which does it for you.
 
 #define AppName "Cut To:"
 #define AppFolder "Cut To"
-#define AppVersion "1.0.0"
+#define AppVersion "1.0.1"
 #define AppExe "Cut To.exe"
 
 [Setup]

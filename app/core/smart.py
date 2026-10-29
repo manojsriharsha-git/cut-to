@@ -83,14 +83,49 @@ def join_heading(intro: str, loc: str, time: str = "") -> str:
     return f"{s} - {time}" if time else s
 
 
+# an extension typed without brackets: "MANOJ V.O.", "MANOJ O.S", "MANOJ CONT'D"
+_BARE_EXT = re.compile(r"\s+(V\.?\s?O\.?|O\.?\s?S\.?|O\.?\s?C\.?|CONT[’']?D\.?)$")
+
+
 def base_name(character_line: str) -> str:
-    return character_line.upper().split("(")[0].strip().rstrip("^").strip()
+    """The character's name alone: no (V.O.), (O.S.), (CONT'D) or dual-dialogue ^."""
+    name = character_line.upper().split("(")[0].strip().rstrip("^").strip()
+    return _BARE_EXT.sub("", name).strip()
+
+
+# --------------------------------------------------------------- auto-capitalise
+_ABBREVIATIONS = {"mr.", "mrs.", "ms.", "dr.", "st.", "vs.", "e.g.", "i.e.", "etc.", "jr.", "sr.",
+                  "no.", "approx.", "prof.", "lt.", "sgt.", "capt.", "col.", "gen.", "mt."}
+
+
+def capital_to_make(text: str, pos: int) -> int | None:
+    """A space was just typed at text[pos - 1]. If the word before it starts a paragraph or a
+    sentence and begins with a small letter, return that letter's index (else None)."""
+    if pos < 2 or text[pos - 1] != " " or text[pos - 2].isspace():
+        return None
+    start = pos - 2
+    while start > 0 and not text[start - 1].isspace():
+        start -= 1
+    i = start
+    while i < pos - 1 and text[i] in "\"'“‘([":   # skip an opening quote or bracket
+        i += 1
+    if i >= pos - 1 or not text[i].islower():
+        return None
+    before = text[:start].rstrip()
+    if before:
+        prev = before.split()[-1].rstrip("\"'”’)]")
+        if not prev.endswith((".", "!", "?")) or prev.endswith(("..", "…")):
+            return None
+        if prev.lower().lstrip("\"'“‘([") in _ABBREVIATIONS:
+            return None
+    return i
 
 
 def looks_like_character(text: str, known: Iterable[str] = ()) -> bool:
     s = text.strip()
     name = base_name(s)
-    if not name or name != s.split("(")[0].strip() or not any(c.isalpha() for c in name):
+    raw = s.split("(")[0].strip()
+    if not name or raw != raw.upper() or not any(c.isalpha() for c in name):
         return False
     if name in set(known):
         return True
@@ -199,6 +234,17 @@ class Stats:
             getattr(s, f).update(d.get(f, {}))
         for f in cls.NESTED:
             setattr(s, f, {k: Counter(v) for k, v in d.get(f, {}).items()})
+        # older files may hold "NAME (V.O.)" as its own name: fold it into NAME
+        names = Counter()
+        for k, v in s.characters.items():
+            names[base_name(k)] += v
+        s.characters = names
+        talk = {}
+        for k, sub in s.speaker_next.items():
+            for v, n in sub.items():
+                if base_name(k) != base_name(v):
+                    cls._bump(talk, base_name(k), base_name(v), n)
+        s.speaker_next = talk
         return s
 
 
@@ -450,10 +496,12 @@ class SmartMemory:
         ranked = in_scene + [n for n in self.known_characters() if n not in in_scene]
         p = typed.strip()
         names = [n for n in ranked if n.startswith(p)]
-        items = [Suggestion(n) for n in names]
         contd = self._contd_for(before)
-        if contd and contd.startswith(p):
+        # one entry per character: the same speaker again becomes "NAME (CONT'D)"
+        items = [Suggestion(f"{n} (CONT'D)" if n == contd else n) for n in names]
+        if contd and contd.startswith(p) and contd not in names:
             items.insert(0, Suggestion(f"{contd} (CONT'D)"))
+        items.sort(key=lambda it: not it.text.endswith("(CONT'D)"))
 
         if not p:
             pred = self.predict_speaker(before)

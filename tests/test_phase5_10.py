@@ -529,8 +529,7 @@ def test_only_the_sheet_is_paper():
     the sheet too, and the gap between pages would look like a box on one long page."""
     import re
     from app.ui.theme import build_qss
-    rule = re.search(r"QTextEdit#page \{[^}]*\}", build_qss()).group(0)
-    assert "background" not in rule.replace("selection-background", "")
+    assert not re.search(r"QTextEdit#page\s*\{", build_qss())
 
 
 def test_focus_mode_has_a_visible_way_out(window, qapp):

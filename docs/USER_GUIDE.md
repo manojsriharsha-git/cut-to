@@ -52,6 +52,7 @@ Cut To: knows the screenplay elements and moves between them for you.
 Cut To: also reads what you type:
 - `int.`, `ext.`, `est.` or `i/e` makes the line a Scene Heading.
 - A name in CAPITALS on its own line becomes a Character when you press Enter.
+- In action and dialogue, the first word of a paragraph or a new sentence gets its capital letter as soon as you type the space after it. Ctrl+Z takes it back; **Format → Capitalize Sentences Automatically** turns it off.
 - Anything ending in `TO:` becomes a Transition.
 - `(` at the start of dialogue makes a Parenthetical and closes the bracket for you.
 
@@ -60,7 +61,7 @@ Cut To: also reads what you type:
 Grey ghost text shows what Cut To: thinks comes next. **Enter** or **→** accepts it, **Esc** dismisses it, and **↑ ↓** pick from the list.
 
 - **Scene headings:** it learns the intro, location and time of day of every heading. Typing `ext. ob` offers `EXT. OBSERVATORY ROOF - CONTINUOUS`. On an empty heading it guesses the next location from the order your scenes usually follow.
-- **Characters:** in a conversation it offers the other speaker (A → B → A). When the same person speaks again after some action, it offers `NAME (CONT'D)`. Typing `(` offers V.O., O.S., O.C. and CONT'D.
+- **Characters:** in a conversation it offers the other speaker (A → B → A). When the same person speaks again after some action, it offers `NAME (CONT'D)`. Each character is offered once: `MANOJ (V.O.)` and `MANOJ` are the same person. Typing `(` offers V.O., O.S., O.C. and CONT'D.
 - **Transitions:** it ranks them by how often you use them.
 
 SmartType learns from every script you open or save. To clear what it has learned, choose **Production → Forget SmartType Memory**.
@@ -111,7 +112,7 @@ Page numbers appear top right from page 2. Scene numbers appear in both margins 
 
 - **Spelling:** a red wavy line marks unknown words. Right-click one for suggestions, **Add to Dictionary** or **Ignore All**. Character names and screenwriting words (INT, CONT'D, V.O.…) are never marked. F7 turns spelling on or off.
 - **Themes:** **View → Theme → Day / Night / Midnight**. PDFs always print black on white.
-- **Focus Mode:** **Ctrl+Shift+F**. Everything but the page disappears, and the paragraphs around the one you're writing fade. Press Esc to come back.
+- **Focus Mode:** click **Focus Mode** on the toolbar or press **Ctrl+Shift+F**. Everything but the page disappears, and the paragraphs around the one you're writing fade. To come back, click the **✕** in the top-right corner (it says *Exit Focus Mode* when you point at it), or press Esc.
 - **Typewriter scrolling:** **Ctrl+Shift+T** keeps the line you're typing in the middle of the screen.
 - **Writing goal:** click the word count in the status bar to set a daily goal. Only words you type count; pasting or opening a script doesn't. The goal dialog also shows your streak.
 - **Rename Character:** **Production → Rename Character…** changes a name on every cue, keeping V.O. and CONT'D. Tick the option to change it in action and dialogue too. It is one undo step.

@@ -26,7 +26,7 @@ if not exist %ISCC% set ISCC="%ProgramFiles%\Inno Setup 6\ISCC.exe"
 if exist %ISCC% (
     %ISCC% packaging\installer.iss || goto :error
     echo.
-    echo Done!  Installer: dist\CutTo-Setup-1.0.0.exe
+    echo Done!  Installer: dist\CutTo-Setup-1.0.1.exe
 ) else (
     echo.
     echo The app is ready in "dist\Cut To\Cut To.exe"

@@ -2,6 +2,19 @@
 
 All notable changes to Cut To: are listed here, newest first.
 
+## 1.0.1 — 2026-10-29
+
+### New
+- **Capitalize Sentences Automatically** (Format menu, on by default): in action and dialogue, the first word of a paragraph or a new sentence gets its capital letter when you type the space after it. Ctrl+Z takes it back.
+- Focus Mode is labelled in words on the toolbar, and a small **✕ Exit Focus Mode** button sits in the corner while it's on.
+
+### Fixed
+- Pressing Enter on the last line on screen now scrolls down with you.
+- Each page shows as its own sheet, with a clear gap between pages.
+- SmartType offers each character once: "MANOJ (V.O.)" and "MANOJ" are the same person. When the same speaker talks again it offers "MANOJ (CONT'D)" in place of the plain name.
+- The element label beside the line no longer runs into the text or a SmartType suggestion, and shows full names ("Scene Heading", "Parenthetical").
+- The element and font boxes on the toolbar are wide enough for their longest names.
+
 ## 1.0.0 — 2026-10-28
 
 The first public release.

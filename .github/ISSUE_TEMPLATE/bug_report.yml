@@ -19,7 +19,7 @@ body:
     id: version
     attributes:
       label: "Cut To: version (Help → About) and Windows version"
-      placeholder: "Cut To: 1.0.0 on Windows 11"
+      placeholder: "Cut To: 1.0.1 on Windows 11"
     validations:
       required: true
   - type: textarea

@@ -111,3 +111,26 @@ def test_stats_roundtrip():
     s = Stats.from_elements(SCRIPT)
     s2 = Stats.from_dict(s.to_dict())
     assert s2.loc_next == s.loc_next and s2.characters == s.characters
+
+
+def test_capital_to_make():
+    from app.core.smart import capital_to_make as cap
+    assert cap("he ", 3) == 0
+    assert cap("He sits. she ", 13) == 9
+    assert cap('"wait ', 6) == 1
+    assert cap("Mr. smith ", 10) is None          # abbreviation, not a new sentence
+    assert cap("And then... i ", 14) is None      # an ellipsis carries on the sentence
+    assert cap("He sits. She ", 13) is None       # already a capital
+
+
+def test_one_suggestion_per_character():
+    """'Manoj (V.O.)' and 'MANOJ' are one character, so SmartType offers one name."""
+    from app.core.smart import SmartMemory, Stats, base_name
+    els = [(T.SCENE_HEADING, "INT. HOUSE - DAY"), (T.CHARACTER, "Manoj (v.o.)"),
+           (T.DIALOGUE, "Hi."), (T.ACTION, "He sits.")]
+    m = SmartMemory(None)
+    m.set_document(els, "k")
+    texts = [s.text for s in m.complete(T.CHARACTER, "M", els).items]
+    assert texts == ["MANOJ (CONT'D)"]
+    assert base_name("manoj v.o.") == base_name("MANOJ (O.S.)") == "MANOJ"
+    assert dict(Stats.from_dict({"characters": {"MANOJ (V.O.)": 3, "MANOJ": 2}}).characters) == {"MANOJ": 5}
